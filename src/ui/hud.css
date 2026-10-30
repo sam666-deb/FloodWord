@@ -1,0 +1,184 @@
+:root {
+  --ink: #2b2a26;
+  --paper: rgba(250, 247, 238, 0.92);
+  --line: #d6cfbd;
+  --accent: #3f5f78;
+  --bad: #b2452f;
+  --good: #3f8a4b;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color: var(--ink);
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hud {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) 1fr minmax(220px, 280px);
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    'top top top'
+    'actions . reputation'
+    'log log log';
+  gap: 12px;
+  padding: 12px;
+}
+
+.panel {
+  pointer-events: auto;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.panel h2 {
+  font-size: 0.95rem;
+  margin: 0 0 8px;
+}
+
+.top-bar {
+  grid-area: top;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-self: center;
+}
+.clock {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.speeds {
+  display: flex;
+  gap: 4px;
+}
+
+.actions {
+  grid-area: actions;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.reputation {
+  grid-area: reputation;
+  align-self: start;
+}
+.reputation ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.reputation li {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+}
+
+.log {
+  grid-area: log;
+  max-height: 22vh;
+  overflow-y: auto;
+  font-size: 0.85rem;
+}
+.log ol {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+}
+.log time {
+  color: #7a7568;
+  font-variant-numeric: tabular-nums;
+  margin-right: 6px;
+}
+.hidden-event {
+  color: #8a8578;
+  font-style: italic;
+}
+.debug {
+  font-size: 0.75rem;
+  color: #7a7568;
+}
+
+button {
+  font: inherit;
+  text-align: left;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+}
+button:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+button.active,
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.bad {
+  color: var(--bad);
+}
+.good {
+  color: var(--good);
+}
+.error {
+  color: var(--bad);
+  font-size: 0.85rem;
+  margin: 4px 0 0;
+}
+
+.outcome {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(30, 30, 25, 0.35);
+  pointer-events: auto;
+}
+.outcome .panel {
+  min-width: 280px;
+}
+
+.map-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  color: var(--ink);
+  text-shadow: 0 0 3px #fff;
+  user-select: none;
+}
+.map-label span {
+  font-size: 0.7rem;
+}
+.map-label.small {
+  font-size: 0.65rem;
+}
+
+@media (max-width: 700px) {
+  .hud {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'top' 'actions' '.' 'reputation' 'log';
+    grid-template-rows: auto auto 1fr auto auto;
+  }
+}
